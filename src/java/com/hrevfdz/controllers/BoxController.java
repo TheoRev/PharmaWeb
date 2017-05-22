@@ -12,6 +12,13 @@ public class BoxController implements Serializable {
 
     private List<StartWork> startWorks;
     private StartWork startWork;
+    
+    public void listarMontoCaja(){
+        try {
+            
+        } catch (Exception e) {
+        }
+    }
 
     public List<StartWork> getStartWorks() {
         return startWorks;
