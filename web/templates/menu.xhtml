@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:menubar>
+                <p:menuitem value="Venta" icon="fa fa-fw fa-shopping-cart"  url="../views/sale.xhtml"/>
+                <p:menuitem value="Stock" icon="fa fa-fw fa-archive" url="../views/stock.xhtml"/>
+                <p:menuitem value="Pagos" icon="fa fa-fw fa-money" url="../views/payments.xhtml"/>
+                <p:menuitem value="Caja" icon="fa fa-fw fa-box" action="../views/box.xhtml"/>
+                <f:facet name="options">
+                    <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
+                    &nbsp;
+                    <p:commandButton value="Cerrar Sesión" icon="fa fa-sign-out"
+                                     actionListener="#{usersController.cerrarSesion()}"
+                                     action="./../index?faces-redirect=true"/>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+        
+        <ui:include src="views/box.xhtml"/>
+    </h:body>
+</html>
+
