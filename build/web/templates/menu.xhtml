@@ -14,10 +14,13 @@
                 <p:menuitem value="Venta" icon="fa fa-fw fa-shopping-cart"  url="../views/sale.xhtml"/>
                 <p:menuitem value="Stock" icon="fa fa-fw fa-archive" url="../views/stock.xhtml"/>
                 <p:menuitem value="Pagos" icon="fa fa-fw fa-money" url="../views/payments.xhtml"/>
-                <p:menuitem value="Caja" icon="fa fa-fw fa-box" action="#"/>
+                <p:menuitem value="Caja" icon="fa fa-fw fa-box" 
+                            action="#"
+                            update=":frmBoxResult:idDlgBoxR"
+                            oncomplete="PF('dlgBoxR').show()"/>
                 <f:facet name="options">
                     <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
-                    &nbsp;
+                    &nbsp;                    
                     <p:commandButton value="Cerrar Sesión" icon="fa fa-sign-out"
                                      actionListener="#{usersController.cerrarSesion()}"
                                      action="./../index?faces-redirect=true"/>

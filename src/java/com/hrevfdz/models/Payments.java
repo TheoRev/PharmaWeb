@@ -54,6 +54,9 @@ public class Payments implements Serializable {
     private BigDecimal monto;
     @Column(name = "descripcion")
     private String descripcion;
+    @JoinColumn(name = "id_sw", referencedColumnName = "id")
+    @ManyToOne
+    private StartWork idSw;
     @JoinColumn(name = "cod_stock", referencedColumnName = "cod_stock")
     @ManyToOne
     private StockProducto codStock;
@@ -104,6 +107,14 @@ public class Payments implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public StartWork getIdSw() {
+        return idSw;
+    }
+
+    public void setIdSw(StartWork idSw) {
+        this.idSw = idSw;
     }
 
     public StockProducto getCodStock() {

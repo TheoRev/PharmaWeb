@@ -1,20 +1,19 @@
 package com.hrevfdz.controllers;
 
 import com.hrevfdz.dao.AccessDAO;
-import com.hrevfdz.dao.LaboratoryDAO;
 import com.hrevfdz.dao.PaymentsDAO;
+import com.hrevfdz.dao.StartWorkDAO;
 import com.hrevfdz.dao.StockProductoDAO;
-import com.hrevfdz.dao.SuppliersDAO;
 import com.hrevfdz.models.Access;
-import com.hrevfdz.models.Laboratory;
 import com.hrevfdz.models.Payments;
+import com.hrevfdz.models.StartWork;
 import com.hrevfdz.models.StockProducto;
-import com.hrevfdz.models.Suppliers;
 import com.hrevfdz.services.IPharmacy;
 import com.hrevfdz.util.AccionUtil;
 import com.hrevfdz.util.MessagesUtil;
-import com.hrevfdz.util.QueriesUtil;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -26,11 +25,13 @@ import javax.faces.context.FacesContext;
 @ViewScoped
 public class PaymentsController implements Serializable {
 
+//    SELECT sw.capital - (SUM(p.monto)) FROM StartWork sw JOIN Payments p WHERE sw.fecha = '2017-05-24' GROUP BY sw.capital
     private List<Payments> paymentses;
     private Payments payments;
     private Access access;
     private List<StockProducto> productos;
     private StockProducto producto;
+    private StartWork startWork;
 //    private List<StockProducto> stockProductos;
 
     private String accion;
@@ -142,7 +143,29 @@ public class PaymentsController implements Serializable {
         }
     }
 
+    public void doGetCaja(Payments p) {
+        FacesMessage msg = null;
+        IPharmacy<StartWork> dao = new StartWorkDAO();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+        try {
+            String query;
+            if (p == null) {
+                query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(new Date()) + "'";
+            } else {
+                query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(p.getFecha()) + "'";
+            }
+
+            startWork = dao.findBy(query);
+            payments.setIdSw(startWork);
+        } catch (Exception e) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
+        }
+
+        if (msg != null) {
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
 
 //    public void doGetProducts() {
 //        FacesMessage msg = null;
@@ -159,11 +182,11 @@ public class PaymentsController implements Serializable {
 //            FacesContext.getCurrentInstance().addMessage(null, msg);
 //        }
 //    }
-
     public void doNew() {
         accion = AccionUtil.CREATE;
         payments = new Payments();
         doGetProductos();
+        doGetCaja(null);
         doGetUserActive();
         doFindAll();
     }
@@ -173,6 +196,7 @@ public class PaymentsController implements Serializable {
         payments = p;
         doGetProductos();
         doGetUserActive();
+        doGetCaja(p);
         doFindAll();
     }
 
@@ -241,7 +265,7 @@ public class PaymentsController implements Serializable {
 
     public void setProductos(List<StockProducto> productos) {
         this.productos = productos;
-    }    
+    }
 
     public StockProducto getProducto() {
         return producto;
@@ -249,6 +273,14 @@ public class PaymentsController implements Serializable {
 
     public void setProducto(StockProducto producto) {
         this.producto = producto;
+    }
+
+    public StartWork getStartWork() {
+        return startWork;
+    }
+
+    public void setStartWork(StartWork startWork) {
+        this.startWork = startWork;
     }
 
 }
