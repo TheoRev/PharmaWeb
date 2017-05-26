@@ -62,6 +62,9 @@ public class Sale implements Serializable {
     @Column(name = "hora")
     @Temporal(TemporalType.TIME)
     private Date hora;
+    @JoinColumn(name = "id_sw", referencedColumnName = "id")
+    @ManyToOne
+    private StartWork idSw;
     @JoinColumn(name = "cod_stock", referencedColumnName = "cod_stock")
     @ManyToOne(optional = false)
     private StockProducto codStock;
@@ -127,6 +130,14 @@ public class Sale implements Serializable {
 
     public void setHora(Date hora) {
         this.hora = hora;
+    }
+
+    public StartWork getIdSw() {
+        return idSw;
+    }
+
+    public void setIdSw(StartWork idSw) {
+        this.idSw = idSw;
     }
 
     public StockProducto getCodStock() {

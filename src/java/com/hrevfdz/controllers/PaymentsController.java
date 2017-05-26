@@ -26,6 +26,7 @@ import javax.faces.context.FacesContext;
 public class PaymentsController implements Serializable {
 
 //    SELECT sw.capital - (SUM(p.monto)) FROM StartWork sw JOIN Payments p WHERE sw.fecha = '2017-05-24' GROUP BY sw.capital
+//    SELECT sw.capital - (SUM(p.monto)) FROM Payments p JOIN StartWork sw WHERE sw.fecha = '2017-05-24' GROUP BY sw.capital
     private List<Payments> paymentses;
     private Payments payments;
     private Access access;

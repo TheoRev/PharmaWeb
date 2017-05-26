@@ -41,6 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
 public class StartWork implements Serializable {
 
     @OneToMany(mappedBy = "idSw")
+    private List<Sale> saleList;
+
+    @OneToMany(mappedBy = "idSw")
     private List<Payments> paymentsList;
 
     private static final long serialVersionUID = 1L;
@@ -138,6 +141,15 @@ public class StartWork implements Serializable {
 
     public void setPaymentsList(List<Payments> paymentsList) {
         this.paymentsList = paymentsList;
+    }
+
+    @XmlTransient
+    public List<Sale> getSaleList() {
+        return saleList;
+    }
+
+    public void setSaleList(List<Sale> saleList) {
+        this.saleList = saleList;
     }
     
 }
