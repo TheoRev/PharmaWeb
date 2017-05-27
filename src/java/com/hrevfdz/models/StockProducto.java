@@ -6,10 +6,8 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-import java.util.List;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,17 +17,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author lheo2
  */
 @Entity
-@Table(name = "stock_producto", catalog = "farmasur", schema = "pharmacy")
+@Table(name = "stock_producto")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StockProducto.findAll", query = "SELECT s FROM StockProducto s")
@@ -38,11 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "StockProducto.findByPresentacion", query = "SELECT s FROM StockProducto s WHERE s.presentacion = :presentacion")
     , @NamedQuery(name = "StockProducto.findByLote", query = "SELECT s FROM StockProducto s WHERE s.lote = :lote")
     , @NamedQuery(name = "StockProducto.findByMonto", query = "SELECT s FROM StockProducto s WHERE s.monto = :monto")
-    , @NamedQuery(name = "StockProducto.findByCantidad", query = "SELECT s FROM StockProducto s WHERE s.cantidad = :cantidad")})
+    , @NamedQuery(name = "StockProducto.findByCantidad", query = "SELECT s FROM StockProducto s WHERE s.cantidad = :cantidad")
+    , @NamedQuery(name = "StockProducto.findByCosto", query = "SELECT s FROM StockProducto s WHERE s.costo = :costo")})
 public class StockProducto implements Serializable {
-
-    @Column(name = "monto")
-    private double monto;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,17 +50,16 @@ public class StockProducto implements Serializable {
     private String presentacion;
     @Column(name = "lote")
     private String lote;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "monto")
+    private Double monto;
     @Column(name = "cantidad")
     private Integer cantidad;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
-    private List<IngresoProducto> ingresoProductoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
-    private List<Sale> saleList;
+    @Column(name = "costo")
+    private BigDecimal costo;
     @JoinColumn(name = "cod_lab", referencedColumnName = "cod_lab")
     @ManyToOne
     private Laboratory codLab;
-    @OneToMany(mappedBy = "codStock")
-    private List<Payments> paymentsList;
 
     public StockProducto() {
     }
@@ -107,6 +100,13 @@ public class StockProducto implements Serializable {
         this.lote = lote;
     }
 
+    public Double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
 
     public Integer getCantidad() {
         return cantidad;
@@ -116,22 +116,12 @@ public class StockProducto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    @XmlTransient
-    public List<IngresoProducto> getIngresoProductoList() {
-        return ingresoProductoList;
+    public BigDecimal getCosto() {
+        return costo;
     }
 
-    public void setIngresoProductoList(List<IngresoProducto> ingresoProductoList) {
-        this.ingresoProductoList = ingresoProductoList;
-    }
-
-    @XmlTransient
-    public List<Sale> getSaleList() {
-        return saleList;
-    }
-
-    public void setSaleList(List<Sale> saleList) {
-        this.saleList = saleList;
+    public void setCosto(BigDecimal costo) {
+        this.costo = costo;
     }
 
     public Laboratory getCodLab() {
@@ -140,15 +130,6 @@ public class StockProducto implements Serializable {
 
     public void setCodLab(Laboratory codLab) {
         this.codLab = codLab;
-    }
-
-    @XmlTransient
-    public List<Payments> getPaymentsList() {
-        return paymentsList;
-    }
-
-    public void setPaymentsList(List<Payments> paymentsList) {
-        this.paymentsList = paymentsList;
     }
 
     @Override
@@ -174,14 +155,6 @@ public class StockProducto implements Serializable {
     @Override
     public String toString() {
         return "com.hrevfdz.models.StockProducto[ codStock=" + codStock + " ]";
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
     }
     
 }

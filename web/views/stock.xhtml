@@ -57,14 +57,12 @@
                             <p:column headerText="Laboratorio"
                                       style="#{stockController.colorearFila(sp.cantidad)}">
                                 <h:outputText value="#{sp.codLab.nomLab}" />
-                                 - 
-                                <p:commandButton  value="Dist" style="text-align: left;"/>
                             </p:column>
                             <p:column headerText="Lote"
                                       style="#{stockController.colorearFila(sp.cantidad)}">
                                 <h:outputText value="#{sp.lote}" />
                             </p:column>
-                            <p:column headerText="Monto"
+                            <p:column headerText="Precio"
                                       style="#{stockController.colorearFila(sp.cantidad)}">
                                 <h:outputText value="#{sp.monto}">
                                     <f:convertNumber currencySymbol="S/." type="currency" />
@@ -138,7 +136,7 @@
                             <p:inputText id="lote"
                                          value="#{stockController.stockProducto.lote}" />
                             <p:outputLabel />
-                            <p:outputLabel value="Monto" />
+                            <p:outputLabel value="Precio" />
                             <p:inputNumber id="monto"
                                            value="#{stockController.stockProducto.monto}" />
                             <p:outputLabel />
