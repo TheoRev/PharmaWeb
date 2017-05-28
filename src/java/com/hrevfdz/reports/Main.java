@@ -1,16 +1,50 @@
 package com.hrevfdz.reports;
 
+import com.hrevfdz.dao.SaleDAO;
 import com.hrevfdz.dao.StartWorkDAO;
 import com.hrevfdz.dao.StockProductoDAO;
 import com.hrevfdz.models.StartWork;
 import com.hrevfdz.models.StockProducto;
 import com.hrevfdz.services.IPharmacy;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Main {
 
     public static void main(String[] args) {
-        findOpenWork();
+//        findOpenWork();
+        findCaja();
+    }
+
+    private static void findCaja() {
+        IPharmacy<StartWork> dao = new StartWorkDAO();
+        IPharmacy daoSale = new SaleDAO();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+//            double totalSale = (double) daoSale.findBy("SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '2017-05-14'");
+            String q = "SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '" + sdf.format(new Date()) + "'";
+            double totalSale = ((double) daoSale.findBy(q))==null ? 0:1;
+
+            System.out.println("Total Ventas: " + totalSale);
+            String query;
+//            if (p == null) {
+//            query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(new Date()) + "'";
+//            } else {
+//            query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '2017-05-14'";
+            query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(new Date()) + "'";
+//            }
+
+            StartWork startWork = dao.findBy(query);
+            System.out.println("Capital: " + startWork.getCapital() + " -> " + startWork.getUserId().getUsername().toUpperCase());
+
+        } catch (Exception e) {
+//            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
+        }
+
+//        if (msg != null) {
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+//        }
     }
 
     private static void findOpenWork() {

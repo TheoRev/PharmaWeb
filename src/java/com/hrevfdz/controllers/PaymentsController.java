@@ -2,6 +2,7 @@ package com.hrevfdz.controllers;
 
 import com.hrevfdz.dao.AccessDAO;
 import com.hrevfdz.dao.PaymentsDAO;
+import com.hrevfdz.dao.SaleDAO;
 import com.hrevfdz.dao.StartWorkDAO;
 import com.hrevfdz.dao.StockProductoDAO;
 import com.hrevfdz.models.Access;
@@ -147,11 +148,14 @@ public class PaymentsController implements Serializable {
     public void doGetCaja(Payments p) {
         FacesMessage msg = null;
         IPharmacy<StartWork> dao = new StartWorkDAO();
+        IPharmacy daoSale = new SaleDAO();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
+            double totalSales;
             String query;
             if (p == null) {
+                totalSales = (double) daoSale.findBy("SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '2017-05-14'");
                 query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(new Date()) + "'";
             } else {
                 query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(p.getFecha()) + "'";

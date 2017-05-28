@@ -6,7 +6,6 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -40,12 +39,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "StartWork.findByCapital", query = "SELECT s FROM StartWork s WHERE s.capital = :capital")})
 public class StartWork implements Serializable {
 
-    @OneToMany(mappedBy = "idSw")
-    private List<Sale> saleList;
-
-    @OneToMany(mappedBy = "idSw")
-    private List<Payments> paymentsList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,13 +49,16 @@ public class StartWork implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "capital")
-    private BigDecimal capital;
+    private double capital;
+    @OneToMany(mappedBy = "idSw")
+    private List<Sale> saleList;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Users userId;
+    @OneToMany(mappedBy = "idSw")
+    private List<Payments> paymentsList;
 
     public StartWork() {
     }
@@ -71,7 +67,7 @@ public class StartWork implements Serializable {
         this.id = id;
     }
 
-    public StartWork(Integer id, Date fecha, BigDecimal capital) {
+    public StartWork(Integer id, Date fecha, double capital) {
         this.id = id;
         this.fecha = fecha;
         this.capital = capital;
@@ -93,12 +89,21 @@ public class StartWork implements Serializable {
         this.fecha = fecha;
     }
 
-    public BigDecimal getCapital() {
+    public double getCapital() {
         return capital;
     }
 
-    public void setCapital(BigDecimal capital) {
+    public void setCapital(double capital) {
         this.capital = capital;
+    }
+
+    @XmlTransient
+    public List<Sale> getSaleList() {
+        return saleList;
+    }
+
+    public void setSaleList(List<Sale> saleList) {
+        this.saleList = saleList;
     }
 
     public Users getUserId() {
@@ -107,6 +112,15 @@ public class StartWork implements Serializable {
 
     public void setUserId(Users userId) {
         this.userId = userId;
+    }
+
+    @XmlTransient
+    public List<Payments> getPaymentsList() {
+        return paymentsList;
+    }
+
+    public void setPaymentsList(List<Payments> paymentsList) {
+        this.paymentsList = paymentsList;
     }
 
     @Override
@@ -132,24 +146,6 @@ public class StartWork implements Serializable {
     @Override
     public String toString() {
         return "com.hrevfdz.models.StartWork[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public List<Payments> getPaymentsList() {
-        return paymentsList;
-    }
-
-    public void setPaymentsList(List<Payments> paymentsList) {
-        this.paymentsList = paymentsList;
-    }
-
-    @XmlTransient
-    public List<Sale> getSaleList() {
-        return saleList;
-    }
-
-    public void setSaleList(List<Sale> saleList) {
-        this.saleList = saleList;
     }
     
 }

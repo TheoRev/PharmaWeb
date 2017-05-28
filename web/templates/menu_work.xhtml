@@ -6,13 +6,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="menustyle.css"/>
     </h:head>
     <h:body>
         <h:form>
             <p:menubar>
                 <p:menuitem value="Venta" icon="fa fa-fw fa-shopping-cart"  url="../views/sale.xhtml" disabled="true"/>
-                <p:menuitem value="Stock" icon="fa fa-fw fa-archive" url="../views/stock.xhtml" disabled="true"/>
+                <p:menuitem value="Stock" icon="fa fa-fw fa-bars" url="../views/stock.xhtml" disabled="true"/>
                 <p:menuitem value="Pagos" icon="fa fa-fw fa-money" url="../views/payments.xhtml" disabled="true"/>
+                <p:separator/>
+                <p:menuitem value="Caja" icon="fa fa-fw fa-archive" />
                 <f:facet name="options">
                     <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
                     &nbsp;

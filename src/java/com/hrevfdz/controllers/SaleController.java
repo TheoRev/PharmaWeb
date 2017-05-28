@@ -8,6 +8,7 @@ import com.hrevfdz.services.IPharmacy;
 import com.hrevfdz.util.AccionUtil;
 import com.hrevfdz.util.QueriesUtil;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

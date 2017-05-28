@@ -6,8 +6,9 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,15 +18,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author lheo2
  */
 @Entity
-@Table(name = "stock_producto")
+@Table(name = "stock_producto", catalog = "farmasur", schema = "pharmacy")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "StockProducto.findAll", query = "SELECT s FROM StockProducto s")
@@ -56,10 +59,16 @@ public class StockProducto implements Serializable {
     @Column(name = "cantidad")
     private Integer cantidad;
     @Column(name = "costo")
-    private BigDecimal costo;
+    private Double costo;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
+    private List<IngresoProducto> ingresoProductoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
+    private List<Sale> saleList;
     @JoinColumn(name = "cod_lab", referencedColumnName = "cod_lab")
     @ManyToOne
     private Laboratory codLab;
+    @OneToMany(mappedBy = "codStock")
+    private List<Payments> paymentsList;
 
     public StockProducto() {
     }
@@ -116,12 +125,30 @@ public class StockProducto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public BigDecimal getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(BigDecimal costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
+    }
+
+    @XmlTransient
+    public List<IngresoProducto> getIngresoProductoList() {
+        return ingresoProductoList;
+    }
+
+    public void setIngresoProductoList(List<IngresoProducto> ingresoProductoList) {
+        this.ingresoProductoList = ingresoProductoList;
+    }
+
+    @XmlTransient
+    public List<Sale> getSaleList() {
+        return saleList;
+    }
+
+    public void setSaleList(List<Sale> saleList) {
+        this.saleList = saleList;
     }
 
     public Laboratory getCodLab() {
@@ -130,6 +157,15 @@ public class StockProducto implements Serializable {
 
     public void setCodLab(Laboratory codLab) {
         this.codLab = codLab;
+    }
+
+    @XmlTransient
+    public List<Payments> getPaymentsList() {
+        return paymentsList;
+    }
+
+    public void setPaymentsList(List<Payments> paymentsList) {
+        this.paymentsList = paymentsList;
     }
 
     @Override
