@@ -36,7 +36,7 @@ public class SaleDAO extends PharmacyService<Sale> {
         super.setCod("codSale");
         return super.findAll();
     }
-//
+
 //    @Override
 //    public Sale findBy(String q) throws Exception {
 //        return super.findBy(q);

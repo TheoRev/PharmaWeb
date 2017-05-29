@@ -24,7 +24,8 @@ public class Main {
         try {
 //            double totalSale = (double) daoSale.findBy("SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '2017-05-14'");
             String q = "SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '" + sdf.format(new Date()) + "'";
-            double totalSale = ((double) daoSale.findBy(q))==null ? 0:1;
+
+            double totalSale = daoSale.findBy(q) != null ? (double) daoSale.findBy(q) : 0;
 
             System.out.println("Total Ventas: " + totalSale);
             String query;

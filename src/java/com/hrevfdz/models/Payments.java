@@ -6,6 +6,7 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -47,14 +48,12 @@ public class Payments implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "monto")
-    private double monto;
+    private BigDecimal monto;
     @Column(name = "descripcion")
     private String descripcion;
-    @JoinColumn(name = "id_sw", referencedColumnName = "id")
-    @ManyToOne
-    private StartWork idSw;
     @JoinColumn(name = "cod_stock", referencedColumnName = "cod_stock")
     @ManyToOne
     private StockProducto codStock;
@@ -69,7 +68,7 @@ public class Payments implements Serializable {
         this.codigo = codigo;
     }
 
-    public Payments(Integer codigo, Date fecha, double monto) {
+    public Payments(Integer codigo, Date fecha, BigDecimal monto) {
         this.codigo = codigo;
         this.fecha = fecha;
         this.monto = monto;
@@ -91,11 +90,11 @@ public class Payments implements Serializable {
         this.fecha = fecha;
     }
 
-    public double getMonto() {
+    public BigDecimal getMonto() {
         return monto;
     }
 
-    public void setMonto(double monto) {
+    public void setMonto(BigDecimal monto) {
         this.monto = monto;
     }
 
@@ -105,14 +104,6 @@ public class Payments implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public StartWork getIdSw() {
-        return idSw;
-    }
-
-    public void setIdSw(StartWork idSw) {
-        this.idSw = idSw;
     }
 
     public StockProducto getCodStock() {

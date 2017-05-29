@@ -6,6 +6,7 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -59,7 +60,7 @@ public class StockProducto implements Serializable {
     @Column(name = "cantidad")
     private Integer cantidad;
     @Column(name = "costo")
-    private Double costo;
+    private BigDecimal costo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
     private List<IngresoProducto> ingresoProductoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
@@ -125,11 +126,11 @@ public class StockProducto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Double getCosto() {
+    public BigDecimal getCosto() {
         return costo;
     }
 
-    public void setCosto(Double costo) {
+    public void setCosto(BigDecimal costo) {
         this.costo = costo;
     }
 

@@ -46,6 +46,8 @@ public class Users implements Serializable {
     @Column(name = "password")
     private String password;
     @OneToMany(mappedBy = "userId")
+    private List<Sale> saleList;
+    @OneToMany(mappedBy = "userId")
     private List<Access> accessList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private List<StartWork> startWorkList;
@@ -81,6 +83,15 @@ public class Users implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @XmlTransient
+    public List<Sale> getSaleList() {
+        return saleList;
+    }
+
+    public void setSaleList(List<Sale> saleList) {
+        this.saleList = saleList;
     }
 
     @XmlTransient

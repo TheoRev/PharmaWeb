@@ -6,6 +6,7 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -50,10 +51,9 @@ public class Sale implements Serializable {
     private int cantidad;
     @Basic(optional = false)
     @Column(name = "precio")
-    private double precio;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    private BigInteger precio;
     @Column(name = "subtotal")
-    private Double subtotal;
+    private BigInteger subtotal;
     @Basic(optional = false)
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
@@ -62,12 +62,12 @@ public class Sale implements Serializable {
     @Column(name = "hora")
     @Temporal(TemporalType.TIME)
     private Date hora;
-    @JoinColumn(name = "id_sw", referencedColumnName = "id")
-    @ManyToOne
-    private StartWork idSw;
     @JoinColumn(name = "cod_stock", referencedColumnName = "cod_stock")
     @ManyToOne(optional = false)
     private StockProducto codStock;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    private Users userId;
 
     public Sale() {
     }
@@ -76,7 +76,7 @@ public class Sale implements Serializable {
         this.codSale = codSale;
     }
 
-    public Sale(Integer codSale, int cantidad, double precio, Date fecha, Date hora) {
+    public Sale(Integer codSale, int cantidad, BigInteger precio, Date fecha, Date hora) {
         this.codSale = codSale;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -100,19 +100,19 @@ public class Sale implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public double getPrecio() {
+    public BigInteger getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(BigInteger precio) {
         this.precio = precio;
     }
 
-    public Double getSubtotal() {
+    public BigInteger getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(BigInteger subtotal) {
         this.subtotal = subtotal;
     }
 
@@ -132,20 +132,20 @@ public class Sale implements Serializable {
         this.hora = hora;
     }
 
-    public StartWork getIdSw() {
-        return idSw;
-    }
-
-    public void setIdSw(StartWork idSw) {
-        this.idSw = idSw;
-    }
-
     public StockProducto getCodStock() {
         return codStock;
     }
 
     public void setCodStock(StockProducto codStock) {
         this.codStock = codStock;
+    }
+
+    public Users getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Users userId) {
+        this.userId = userId;
     }
 
     @Override

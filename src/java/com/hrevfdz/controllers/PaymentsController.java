@@ -37,7 +37,7 @@ public class PaymentsController implements Serializable {
 //    private List<StockProducto> stockProductos;
 
     private String accion;
-
+    
     @PostConstruct
     public void init() {
         payments = new Payments();
@@ -46,14 +46,14 @@ public class PaymentsController implements Serializable {
         doGetProductos();
         doGetUserActive();
     }
-
+    
     public void doCreate() {
         FacesMessage msg = null;
         IPharmacy<Payments> dao = new PaymentsDAO();
-
+        
         try {
             boolean result = dao.Create(payments);
-
+            
             if (result) {
                 paymentses.add(paymentses.size(), payments);
                 doFindAll();
@@ -64,17 +64,17 @@ public class PaymentsController implements Serializable {
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
-
+        
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
     public void doUpdate(Payments p) {
         FacesMessage msg = null;
         IPharmacy<Payments> dao = new PaymentsDAO();
-
+        
         try {
             boolean result = dao.Update(p);
-
+            
             if (result) {
                 paymentses.clear();
                 doFindAll();
@@ -86,17 +86,17 @@ public class PaymentsController implements Serializable {
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
-
+        
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
     public void doDelete(Payments p) {
         FacesMessage msg = null;
         IPharmacy<Payments> dao = new PaymentsDAO();
-
+        
         try {
             boolean result = dao.Delete(p);
-
+            
             if (result) {
                 paymentses.clear();
                 doFindAll();
@@ -108,14 +108,14 @@ public class PaymentsController implements Serializable {
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
-
+        
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    
     public void doGetUserActive() {
         FacesMessage msg = null;
         IPharmacy<Access> dao = new AccessDAO();
-
+        
         try {
             final String query = "SELECT a FROM Access a WHERE a.id = (SELECT MAX(t.id) FROM Access t)";
             access = dao.findBy(query);
@@ -123,50 +123,64 @@ public class PaymentsController implements Serializable {
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
-
+        
         if (msg != null) {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public void doGetProductos() {
         FacesMessage msg = null;
         IPharmacy<StockProducto> dao = new StockProductoDAO();
-
+        
         try {
             final String query = "SELECT p FROM StockProducto p WHERE p.cantidad > 0  ORDER BY p.nombre";
             productos = dao.findByQuery(query);
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
-
+        
         if (msg != null) {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public void doGetCaja(Payments p) {
         FacesMessage msg = null;
-        IPharmacy<StartWork> dao = new StartWorkDAO();
-        IPharmacy daoSale = new SaleDAO();
+        IPharmacy dao = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+        
         try {
             double totalSales;
-            String query;
+            double totalPays;
+            String q1;
+            String q2;
+            String q3;
+            
             if (p == null) {
-                totalSales = (double) daoSale.findBy("SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '2017-05-14'");
-                query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(new Date()) + "'";
+                q1 = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(new Date()) + "'";
+                q2 = "SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '" + sdf.format(new Date()) + "'";
+                q3 = "SELECT SUM(p.monto) FROM Payments p WHERE p.fecha = '" + sdf.format(new Date()) + "'";
             } else {
-                query = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(p.getFecha()) + "'";
+                q1 = "SELECT sw FROM StartWork sw WHERE sw.fecha = '" + sdf.format(p.getFecha()) + "'";
+                q2 = "SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '" + sdf.format(p.getFecha()) + "'";
+                q3 = "SELECT SUM(p.monto) FROM Payments p WHERE p.fecha = '" + sdf.format(p.getFecha()) + "'";
             }
-
-            startWork = dao.findBy(query);
+            
+            dao = (dao == null) ? new SaleDAO() : dao;
+            totalSales = dao.findBy(q2) != null ? (double) dao.findBy(q2) : 0;
+            dao = new PaymentsDAO();
+            totalPays = dao.findBy(q3) != null ? (double) dao.findBy(q3) : 0;
+            
+            dao = new StartWorkDAO();
+            startWork = (StartWork) dao.findBy(q1);
+            double montoAct = (startWork.getCapital() + totalSales) - totalPays;
+            startWork.setCapital(montoAct);
             payments.setIdSw(startWork);
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
-
+        
         if (msg != null) {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
@@ -195,7 +209,7 @@ public class PaymentsController implements Serializable {
         doGetUserActive();
         doFindAll();
     }
-
+    
     public void doUpgrade(Payments p) {
         accion = AccionUtil.UPDATE;
         payments = p;
@@ -204,7 +218,7 @@ public class PaymentsController implements Serializable {
         doGetCaja(p);
         doFindAll();
     }
-
+    
     public void doExecute() {
         switch (accion) {
             case AccionUtil.CREATE:
@@ -215,77 +229,77 @@ public class PaymentsController implements Serializable {
                 break;
         }
     }
-
+    
     public void doFindAll() {
         FacesMessage msg = null;
         IPharmacy<Payments> dao = new PaymentsDAO();
-
+        
         try {
             final String query = "SELECT p FROM Payments p";
             paymentses = dao.findByQuery(query);
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, MessagesUtil.ERROR + ": " + e.getMessage());
         }
-
+        
         if (msg != null) {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
     }
-
+    
     public List<Payments> getPaymentses() {
         return paymentses;
     }
-
+    
     public void setPaymentses(List<Payments> paymentses) {
         this.paymentses = paymentses;
     }
-
+    
     public Payments getPayments() {
         return payments;
     }
-
+    
     public void setPayments(Payments payments) {
         this.payments = payments;
     }
-
+    
     public String getAccion() {
         return accion;
     }
-
+    
     public void setAccion(String accion) {
         this.accion = accion;
     }
-
+    
     public Access getAccess() {
         return access;
     }
-
+    
     public void setAccess(Access access) {
         this.access = access;
     }
-
+    
     public List<StockProducto> getProductos() {
         return productos;
     }
-
+    
     public void setProductos(List<StockProducto> productos) {
         this.productos = productos;
     }
-
+    
     public StockProducto getProducto() {
         return producto;
     }
-
+    
     public void setProducto(StockProducto producto) {
         this.producto = producto;
     }
-
+    
     public StartWork getStartWork() {
         return startWork;
     }
-
+    
     public void setStartWork(StartWork startWork) {
         this.startWork = startWork;
     }
-
+    
 }

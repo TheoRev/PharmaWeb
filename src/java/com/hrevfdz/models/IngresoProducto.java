@@ -6,6 +6,7 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -55,7 +56,7 @@ public class IngresoProducto implements Serializable {
     private int cantidad;
     @Basic(optional = false)
     @Column(name = "costo")
-    private double costo;
+    private BigInteger costo;
     @JoinColumn(name = "cod_stock", referencedColumnName = "cod_stock")
     @ManyToOne(optional = false)
     private StockProducto codStock;
@@ -67,7 +68,7 @@ public class IngresoProducto implements Serializable {
         this.codigo = codigo;
     }
 
-    public IngresoProducto(Integer codigo, int cantidad, double costo) {
+    public IngresoProducto(Integer codigo, int cantidad, BigInteger costo) {
         this.codigo = codigo;
         this.cantidad = cantidad;
         this.costo = costo;
@@ -105,11 +106,11 @@ public class IngresoProducto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public double getCosto() {
+    public BigInteger getCosto() {
         return costo;
     }
 
-    public void setCosto(double costo) {
+    public void setCosto(BigInteger costo) {
         this.costo = costo;
     }
 
