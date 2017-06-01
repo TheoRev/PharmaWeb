@@ -26,11 +26,6 @@ public class PaymentsDAO extends PharmacyService<Payments> {
     }
 
     @Override
-    public Payments findBy(String q) throws Exception {
-        return super.findBy(q); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Payments> findAll() throws Exception {
         return super.findAll(); //To change body of generated methods, choose Tools | Templates.
     }

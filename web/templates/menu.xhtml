@@ -7,25 +7,30 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet library="css" name="menustyle.css"/>
     </h:head>
     <h:body>
         <h:form>
             <p:menubar>
                 <p:menuitem value="Venta" icon="fa fa-fw fa-shopping-cart"  url="../views/sale.xhtml"/>
-                <p:menuitem value="Stock" icon="fa fa-fw fa-archive" url="../views/stock.xhtml"/>
+                <p:menuitem value="Stock" icon="fa fa-fw fa-bars" url="../views/stock.xhtml"/>
                 <p:menuitem value="Pagos" icon="fa fa-fw fa-money" url="../views/payments.xhtml"/>
-                <p:menuitem value="Caja" icon="fa fa-fw fa-box" action="../views/box.xhtml"/>
+                <p:separator />                
+                <p:menuitem value="Caja" icon="fa fa-fw fa-archive" 
+                            action="#"
+                            update=":frmBoxResult:idDlgBoxR"
+                            oncomplete="PF('dlgBoxR').show()"/>
                 <f:facet name="options">
                     <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
-                    &nbsp;
+                    &nbsp;                    
                     <p:commandButton value="Cerrar Sesión" icon="fa fa-sign-out"
                                      actionListener="#{usersController.cerrarSesion()}"
                                      action="./../index?faces-redirect=true"/>
                 </f:facet>
             </p:menubar>
         </h:form>
-        
-        <ui:include src="views/box.xhtml"/>
+
+        <ui:include src="../views/box.xhtml"/>
     </h:body>
 </html>
 

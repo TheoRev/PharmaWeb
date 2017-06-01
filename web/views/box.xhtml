@@ -11,14 +11,15 @@
         <h:form id="frmBoxResult">
             <p:growl id="msgBoxR" showDetail="true"/>
             <p:dialog closable="true"
+                      minimizable="true"
+                      maximizable="false"
+                      header="CAJA"
                       widgetVar="dlgBoxR"
                       id="idDlgBoxR"
                       showEffect="explode"
                       hideEffect="explode" width="1200">
                 <p:panel id="pnlBoxR" styleClass="panel-content" >
                     <p:dataTable id="tblSuppR" rows="10" paginator="true"
-                                 value=""
-                                 var="b"
                                  paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" styleClass="panel-content">
                         <p:column headerText="Fecha">

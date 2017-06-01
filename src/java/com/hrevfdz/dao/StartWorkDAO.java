@@ -26,11 +26,6 @@ public class StartWorkDAO extends PharmacyService<StartWork>{
     }
 
     @Override
-    public StartWork findBy(String q) throws Exception {
-        return super.findBy(q); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<StartWork> findAll() throws Exception {
         return super.findAll(); //To change body of generated methods, choose Tools | Templates.
     }

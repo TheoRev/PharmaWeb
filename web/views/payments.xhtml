@@ -15,7 +15,7 @@
                 <p:growl id="wellcomeMessage" showDetail="true" sticky="true"/>
 
                 <h:form id="frmPayResult">
-                    <p:growl id="showMessagePay" showDetail="true" sticky="true"/>
+                    <p:growl id="showMessagePay" showDetail="true" />
                     <p:panel id="pnlPayResult">
                         <p:dataTable id="tblPayResult" rows="10" paginator="true"
                                      value="#{paymentsController.paymentses}" var="p"
@@ -29,15 +29,15 @@
                                                  style="float: right; font-size: 10pt;"
                                                  update=":frmPayCU:idDlgPayCU"
                                                  oncomplete="PF('dlgPayCU').show()" icon="fa fa-plus"
-                                                 title="Añadir Venta" action="#{saleController.doNew()}" />
+                                                 title="Añadir Venta" action="#{paymentsController.doNew()}" />
                             </f:facet>
 
                             <p:column headerText="Código" styleClass="cod_col"
-                                      sortBy="#{sp.codSale}">
+                                      sortBy="#{p.codigo}">
                                 <h:outputText value="#{p.codigo}" />
                             </p:column>
-                            <p:column headerText="Fecha">
-                                <h:outputText value="#{p.fecha}">
+                            <p:column headerText="Fecha" sortBy="#{p.fecha}">
+                                <h:outputText value="#{p.fecha}" >
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
                             </p:column>
@@ -73,13 +73,13 @@
                 </h:form>
 
                 <h:form id="frmPayCU">
-                    <p:dialog id="idDlgPayCU" header="#{saleController.accion} PAGO"
+                    <p:dialog id="idDlgPayCU" header="#{paymentsController.accion} PAGO"
                               closable="true" widgetVar="dlgPayCU" showEffect="explode"
                               hideEffect="explode" modal="true"
                               resizable="false">
                         <p:panelGrid id="pgSaleCU" columns="2">
                             <p:outputLabel value="Monto actual en Caja"/>
-                            <p:outputLabel value=""/>
+                            <p:outputLabel value="#{paymentsController.startWork.capital}"/>
                             <p:outputLabel value="Código" />
                             <p:inputText value="#{paymentsController.payments.codigo}"
                                          disabled="true" />
@@ -108,7 +108,7 @@
                                 </p:column>
                             </p:selectOneMenu> 
                             <p:outputLabel for="txtMonto" value="Monto" />
-                            <p:inputNumber id="txtMonto"  value="#{paymentsController.payments.monto}" symbol="S/. "/>
+                            <p:inputNumber id="txtMonto"  value="#{paymentsController.payments.monto}" symbol="S/. " emptyValue="0.00"/>
                             <p:outputLabel value="Descripción" />
                             <p:inputTextarea value="#{paymentsController.payments.descripcion}" rows="6" cols="33"/>
                             <p:outputLabel />                       
@@ -130,7 +130,7 @@
                     <p:confirmDialog id="idConfirmDeletePay"
                                      widgetVar="dlgConfirmDeletePay" showEffect="explode"
                                      hideEffect="explode" header="Eliminar Laboratorio"
-                                     message="¿Esta seguro que desea eliminar la venta registrado como: #{paymentsController.payments.descripcion}?">
+                                     message="¿Esta seguro que desea eliminar la venta registrado como: #{paymentsController.payments.descripcion} y con Código = #{paymentsController.payments.codigo}?">
                         <h:inputHidden value="#{paymentsController.payments.codigo}" />
                         <div class="delete-button">
                             <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"

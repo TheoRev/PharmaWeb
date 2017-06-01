@@ -6,7 +6,6 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -48,12 +47,13 @@ public class Sale implements Serializable {
     private Integer codSale;
     @Basic(optional = false)
     @Column(name = "cantidad")
-    private Integer cantidad;
+    private int cantidad;
     @Basic(optional = false)
     @Column(name = "precio")
     private double precio;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "subtotal")
-    private double subtotal;
+    private Double subtotal;
     @Basic(optional = false)
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
@@ -65,6 +65,9 @@ public class Sale implements Serializable {
     @JoinColumn(name = "cod_stock", referencedColumnName = "cod_stock")
     @ManyToOne(optional = false)
     private StockProducto codStock;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne
+    private Users userId;
 
     public Sale() {
     }
@@ -73,7 +76,7 @@ public class Sale implements Serializable {
         this.codSale = codSale;
     }
 
-    public Sale(Integer codSale, Integer cantidad, double precio, Date fecha, Date hora) {
+    public Sale(Integer codSale, int cantidad, double precio, Date fecha, Date hora) {
         this.codSale = codSale;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -89,11 +92,11 @@ public class Sale implements Serializable {
         this.codSale = codSale;
     }
 
-    public Integer getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(Integer cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -105,11 +108,11 @@ public class Sale implements Serializable {
         this.precio = precio;
     }
 
-    public double getSubtotal() {
+    public Double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(double subtotal) {
+    public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
     }
 
@@ -135,6 +138,14 @@ public class Sale implements Serializable {
 
     public void setCodStock(StockProducto codStock) {
         this.codStock = codStock;
+    }
+
+    public Users getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Users userId) {
+        this.userId = userId;
     }
 
     @Override

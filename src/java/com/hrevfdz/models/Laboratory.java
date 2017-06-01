@@ -35,9 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Laboratory.findByNomLab", query = "SELECT l FROM Laboratory l WHERE l.nomLab = :nomLab")})
 public class Laboratory implements Serializable {
 
-    @OneToMany(mappedBy = "codLab")
-    private List<StockProducto> stockProductoList;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,6 +43,8 @@ public class Laboratory implements Serializable {
     private Integer codLab;
     @Column(name = "nom_lab")
     private String nomLab;
+    @OneToMany(mappedBy = "codLab")
+    private List<StockProducto> stockProductoList;
     @JoinColumn(name = "cod_supplier", referencedColumnName = "codigo")
     @ManyToOne
     private Suppliers codSupplier;
@@ -71,6 +70,15 @@ public class Laboratory implements Serializable {
 
     public void setNomLab(String nomLab) {
         this.nomLab = nomLab;
+    }
+
+    @XmlTransient
+    public List<StockProducto> getStockProductoList() {
+        return stockProductoList;
+    }
+
+    public void setStockProductoList(List<StockProducto> stockProductoList) {
+        this.stockProductoList = stockProductoList;
     }
 
     public Suppliers getCodSupplier() {
@@ -104,15 +112,6 @@ public class Laboratory implements Serializable {
     @Override
     public String toString() {
         return "com.hrevfdz.models.Laboratory[ codLab=" + codLab + " ]";
-    }
-
-    @XmlTransient
-    public List<StockProducto> getStockProductoList() {
-        return stockProductoList;
-    }
-
-    public void setStockProductoList(List<StockProducto> stockProductoList) {
-        this.stockProductoList = stockProductoList;
     }
     
 }

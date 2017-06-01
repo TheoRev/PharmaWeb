@@ -6,7 +6,7 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -38,11 +38,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "StockProducto.findByPresentacion", query = "SELECT s FROM StockProducto s WHERE s.presentacion = :presentacion")
     , @NamedQuery(name = "StockProducto.findByLote", query = "SELECT s FROM StockProducto s WHERE s.lote = :lote")
     , @NamedQuery(name = "StockProducto.findByMonto", query = "SELECT s FROM StockProducto s WHERE s.monto = :monto")
-    , @NamedQuery(name = "StockProducto.findByCantidad", query = "SELECT s FROM StockProducto s WHERE s.cantidad = :cantidad")})
+    , @NamedQuery(name = "StockProducto.findByCantidad", query = "SELECT s FROM StockProducto s WHERE s.cantidad = :cantidad")
+    , @NamedQuery(name = "StockProducto.findByCosto", query = "SELECT s FROM StockProducto s WHERE s.costo = :costo")})
 public class StockProducto implements Serializable {
-
-    @Column(name = "monto")
-    private double monto;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,8 +54,13 @@ public class StockProducto implements Serializable {
     private String presentacion;
     @Column(name = "lote")
     private String lote;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "monto")
+    private double monto;
     @Column(name = "cantidad")
     private Integer cantidad;
+    @Column(name = "costo")
+    private BigDecimal costo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
     private List<IngresoProducto> ingresoProductoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
@@ -107,6 +110,13 @@ public class StockProducto implements Serializable {
         this.lote = lote;
     }
 
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(Double monto) {
+        this.monto = monto;
+    }
 
     public Integer getCantidad() {
         return cantidad;
@@ -114,6 +124,14 @@ public class StockProducto implements Serializable {
 
     public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public BigDecimal getCosto() {
+        return costo;
+    }
+
+    public void setCosto(BigDecimal costo) {
+        this.costo = costo;
     }
 
     @XmlTransient
@@ -174,14 +192,6 @@ public class StockProducto implements Serializable {
     @Override
     public String toString() {
         return "com.hrevfdz.models.StockProducto[ codStock=" + codStock + " ]";
-    }
-
-    public double getMonto() {
-        return monto;
-    }
-
-    public void setMonto(double monto) {
-        this.monto = monto;
     }
     
 }
