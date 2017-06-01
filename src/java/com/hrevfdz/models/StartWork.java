@@ -6,7 +6,6 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -47,10 +46,9 @@ public class StartWork implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "capital")
-    private BigDecimal capital;
+    private double capital;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Users userId;
@@ -62,7 +60,7 @@ public class StartWork implements Serializable {
         this.id = id;
     }
 
-    public StartWork(Integer id, Date fecha, BigDecimal capital) {
+    public StartWork(Integer id, Date fecha, double capital) {
         this.id = id;
         this.fecha = fecha;
         this.capital = capital;
@@ -84,11 +82,11 @@ public class StartWork implements Serializable {
         this.fecha = fecha;
     }
 
-    public BigDecimal getCapital() {
+    public double getCapital() {
         return capital;
     }
 
-    public void setCapital(BigDecimal capital) {
+    public void setCapital(double capital) {
         this.capital = capital;
     }
 

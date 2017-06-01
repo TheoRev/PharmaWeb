@@ -6,7 +6,6 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -51,9 +50,10 @@ public class Sale implements Serializable {
     private int cantidad;
     @Basic(optional = false)
     @Column(name = "precio")
-    private BigInteger precio;
+    private double precio;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "subtotal")
-    private BigInteger subtotal;
+    private Double subtotal;
     @Basic(optional = false)
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
@@ -76,7 +76,7 @@ public class Sale implements Serializable {
         this.codSale = codSale;
     }
 
-    public Sale(Integer codSale, int cantidad, BigInteger precio, Date fecha, Date hora) {
+    public Sale(Integer codSale, int cantidad, double precio, Date fecha, Date hora) {
         this.codSale = codSale;
         this.cantidad = cantidad;
         this.precio = precio;
@@ -100,19 +100,19 @@ public class Sale implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public BigInteger getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(BigInteger precio) {
+    public void setPrecio(double precio) {
         this.precio = precio;
     }
 
-    public BigInteger getSubtotal() {
+    public Double getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(BigInteger subtotal) {
+    public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
     }
 

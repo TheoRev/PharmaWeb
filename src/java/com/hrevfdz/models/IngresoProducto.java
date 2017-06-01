@@ -56,7 +56,7 @@ public class IngresoProducto implements Serializable {
     private int cantidad;
     @Basic(optional = false)
     @Column(name = "costo")
-    private BigInteger costo;
+    private double costo;
     @JoinColumn(name = "cod_stock", referencedColumnName = "cod_stock")
     @ManyToOne(optional = false)
     private StockProducto codStock;
@@ -68,7 +68,7 @@ public class IngresoProducto implements Serializable {
         this.codigo = codigo;
     }
 
-    public IngresoProducto(Integer codigo, int cantidad, BigInteger costo) {
+    public IngresoProducto(Integer codigo, int cantidad, double costo) {
         this.codigo = codigo;
         this.cantidad = cantidad;
         this.costo = costo;
@@ -106,11 +106,11 @@ public class IngresoProducto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public BigInteger getCosto() {
+    public double getCosto() {
         return costo;
     }
 
-    public void setCosto(BigInteger costo) {
+    public void setCosto(double costo) {
         this.costo = costo;
     }
 

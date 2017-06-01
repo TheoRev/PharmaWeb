@@ -56,7 +56,7 @@ public class StockProducto implements Serializable {
     private String lote;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "monto")
-    private Double monto;
+    private double monto;
     @Column(name = "cantidad")
     private Integer cantidad;
     @Column(name = "costo")
@@ -110,7 +110,7 @@ public class StockProducto implements Serializable {
         this.lote = lote;
     }
 
-    public Double getMonto() {
+    public double getMonto() {
         return monto;
     }
 

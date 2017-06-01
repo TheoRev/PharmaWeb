@@ -3,27 +3,30 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/start_work.xhtml</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/reports/Main.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/controllers/PaymentsController.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/sale.xhtml</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/dao/StartWorkDAO.java</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/dao/SaleDAO.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/controllers/BoxController.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/controllers/TemplateController.java</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/templates/template.xhtml</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/util/MessagesUtil.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/models/IngresoProducto.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/models/Laboratory.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/models/StockProducto.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/index.xhtml</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/util/AccionUtil.java</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/templates/menu.xhtml</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/services/PharmacyService.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/dao/PaymentsDAO.java</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/box.xhtml</file>
-            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/suppliers.xhtml</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/controllers/SaleController.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/services/IPharmacy.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/controllers/StockController.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/models/Users.java</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/controllers/SuppliersController.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/start_work.xhtml</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/dao/StartWorkDAO.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/dao/SaleDAO.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/templates/template.xhtml</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/src/java/com/hrevfdz/util/MessagesUtil.java</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/templates/menu.xhtml</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/box.xhtml</file>
+            <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/suppliers.xhtml</file>
             <file>file:/D:/backup/NetBeansProjects/PharmaWeb/web/views/payments.xhtml</file>
         </group>
     </open-files>

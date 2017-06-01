@@ -176,7 +176,7 @@ public class PaymentsController implements Serializable {
             startWork = (StartWork) dao.findBy(q1);
             double montoAct = (startWork.getCapital() + totalSales) - totalPays;
             startWork.setCapital(montoAct);
-            payments.setIdSw(startWork);
+//            payments.setIdSw(startWork);
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
