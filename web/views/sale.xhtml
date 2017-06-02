@@ -82,6 +82,9 @@
                                     <f:convertNumber currencySymbol="S/." type="currency" />
                                 </h:outputText>
                             </p:column>
+                            <p:column headerText="Usuario">
+                                <h:outputText value="#{sp.userId.username}"/>
+                            </p:column>
                             <p:column headerText="">
                                 <div class="action_column">
                                     <p:commandButton icon="fa fa-pencil"

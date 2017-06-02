@@ -1,11 +1,14 @@
 package com.hrevfdz.controllers;
 
+import com.hrevfdz.dao.AccessDAO;
 import com.hrevfdz.dao.SaleDAO;
 import com.hrevfdz.dao.StockProductoDAO;
+import com.hrevfdz.models.Access;
 import com.hrevfdz.models.Sale;
 import com.hrevfdz.models.StockProducto;
 import com.hrevfdz.services.IPharmacy;
 import com.hrevfdz.util.AccionUtil;
+import com.hrevfdz.util.MessagesUtil;
 import com.hrevfdz.util.QueriesUtil;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -37,6 +40,7 @@ public class SaleController implements Serializable {
     private Date fecha;
     private String accion;
     private boolean estado;
+    private Access access;
 
     @PostConstruct
     public void init() {
@@ -48,6 +52,7 @@ public class SaleController implements Serializable {
             sale.setFecha(sdf.parse(sdf.format(fec)));
             doFindAll();
             doFindAllStock();
+            doGetUserActive();
         } catch (ParseException ex) {
             Logger.getLogger(SaleController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -243,6 +248,23 @@ public class SaleController implements Serializable {
         }
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void doGetUserActive() {
+        FacesMessage msg = null;
+        IPharmacy<Access> dao = new AccessDAO();
+        
+        try {
+            final String query = "SELECT a FROM Access a WHERE a.id = (SELECT MAX(t.id) FROM Access t)";
+            access = dao.findBy(query);
+            this.sale.setUserId(access.getUserId());
+        } catch (Exception e) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
+        }
+        
+        if (msg != null) {
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
     }
 
     public void doDelete(Sale s) {

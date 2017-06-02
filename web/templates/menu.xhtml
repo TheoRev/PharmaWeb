@@ -17,9 +17,9 @@
                 <p:menuitem value="Pagos" icon="fa fa-fw fa-money" url="../views/payments.xhtml"/>
                 <p:separator />                
                 <p:menuitem value="Caja" icon="fa fa-fw fa-archive" 
-                            action="#"
-                            update=":frmBoxResult:idDlgBoxR"
-                            oncomplete="PF('dlgBoxR').show()"/>
+                            update=":frmWorks:idDlgWorks"
+                            oncomplete="PF('dlgWorks').show()"
+                            action="#{startWorkController.doFindAll()}"/>
                 <f:facet name="options">
                     <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
                     &nbsp;                    
@@ -30,7 +30,7 @@
             </p:menubar>
         </h:form>
 
-        <ui:include src="../views/box.xhtml"/>
+        <ui:include src="../views/works.xhtml"/>
     </h:body>
 </html>
 
