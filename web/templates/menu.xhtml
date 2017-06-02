@@ -20,6 +20,9 @@
                             update=":frmWorks:idDlgWorks"
                             oncomplete="PF('dlgWorks').show()"
                             action="#{startWorkController.doFindAll()}"/>
+                <p:separator/>
+                <p:menuitem value="Caja" icon="fa fa-fw fa-users" 
+                            action="#"/>
                 <f:facet name="options">
                     <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
                     &nbsp;                    
