@@ -90,8 +90,28 @@
                             <p:calendar id="txtFecSup" value="#{paymentsController.payments.fecha}" navigator="true"
                                         pattern="dd/MM/yyyy" effect="fold" 
                                         showOn="button" required="true"/>
+                            <p:outputLabel value="Laboratorio"/>
+                            <p:selectOneMenu id="labs" effect="fold"
+                                             converter="labConverter"
+                                             value="#{paymentsController.laboratory}"
+                                             var="l"
+                                             filter="true" filterMatchMode="startsWith">
+                                <f:selectItem itemLabel="Seleccione" itemValue="-1"/>
+                                <f:selectItems value="#{paymentsController.laboratorys}" var="la"
+                                               itemLabel="#{la.nomLab}"
+                                               itemValue="#{la}"/>
+                                <p:ajax event="change" 
+                                        listener="#{paymentsController.doGetProductos()}"
+                                        update="somProducto"/>
+                                <p:column>
+                                    <h:outputText value="#{l.codLab}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{l.nomLab}"/>
+                                </p:column>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Producto"/>
-                            <p:selectOneMenu id="somproducto" effect="fold"
+                            <p:selectOneMenu id="somProducto" effect="fold"
                                              converter="stockConverter"
                                              value="#{paymentsController.payments.codStock}"
                                              var="sp"
@@ -144,7 +164,6 @@
                     </p:confirmDialog>
                 </h:form>
 
-                <ui:include src="suppliers.xhtml" />
 
             </ui:define>            
 

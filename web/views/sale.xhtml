@@ -11,9 +11,8 @@
         <ui:composition template="./../templates/template.xhtml">
 
             <ui:define name="content">
-                <p:growl id="wellcomeMessage" showDetail="true" />
                 <h:form id="frmFiltroSale">
-                    <p:messages id="msgInfo" autoUpdate="false" />
+                    <p:growl id="wellcomeMessage" showDetail="true" />
                     <!--<p:inputText id="txtFinderSale" placeholder="Nombre de farmaco" />
         &nbsp;-->
                     <br />
@@ -29,7 +28,7 @@
                     &nbsp;
                     <p:commandButton icon="fa fa-search"
                                      action="#{saleController.doFindByFecha()}"
-                                     update=":frmSaleResult:pnlSaleResult msgInfo" validateClient="true" />
+                                     update=":frmSaleResult:pnlSaleResult wellcomeMessage" validateClient="true" />
                     <br />
                 </h:form>
 

@@ -21,8 +21,10 @@
                             oncomplete="PF('dlgWorks').show()"
                             action="#{startWorkController.doFindAll()}"/>
                 <p:separator/>
-                <p:menuitem value="Caja" icon="fa fa-fw fa-users" 
-                            action="#"/>
+                <p:menuitem value="Distribuidores" icon="fa fa-users fa-fw" 
+                            update=":frmSuppR:idDlgSuppR"
+                            oncomplete="PF('dlgSuppR').show()"
+                            action="#{suppliersController.doFindAll()}"/>
                 <f:facet name="options">
                     <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
                     &nbsp;                    
@@ -34,6 +36,7 @@
         </h:form>
 
         <ui:include src="../views/works.xhtml"/>
+        <ui:include src="../views/suppliers.xhtml"/>
     </h:body>
 </html>
 

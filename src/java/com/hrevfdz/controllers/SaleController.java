@@ -313,6 +313,7 @@ public class SaleController implements Serializable {
         accion = AccionUtil.CREATE;
         sale = new Sale();
         doFindAllStock();
+        doGetUserActive();
         estado = false;
     }
 
@@ -322,6 +323,7 @@ public class SaleController implements Serializable {
         doFindAllStock();
         tempSale = sale;
         doFindStockByCod();
+        doGetUserActive();
         estado = true;
     }
 

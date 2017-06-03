@@ -16,6 +16,10 @@
                 <p:menuitem value="Pagos" icon="fa fa-fw fa-money" url="../views/payments.xhtml" disabled="true"/>
                 <p:separator/>
                 <p:menuitem value="Caja" icon="fa fa-fw fa-archive" disabled="true" />
+                <p:separator/>
+                <p:menuitem value="Distribuidores" icon="fa fa-users" disabled="true"
+                            action="#"/>
+                
                 <f:facet name="options">
                     <p:outputLabel value="Sesion: #{usersController.usuario.username.toUpperCase()}"/>
                     &nbsp;
