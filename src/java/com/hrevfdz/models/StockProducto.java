@@ -6,7 +6,6 @@
 package com.hrevfdz.models;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -56,11 +55,11 @@ public class StockProducto implements Serializable {
     private String lote;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "monto")
-    private double monto;
+    private Double monto;
     @Column(name = "cantidad")
     private Integer cantidad;
     @Column(name = "costo")
-    private BigDecimal costo;
+    private Double costo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
     private List<IngresoProducto> ingresoProductoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "codStock")
@@ -110,7 +109,7 @@ public class StockProducto implements Serializable {
         this.lote = lote;
     }
 
-    public double getMonto() {
+    public Double getMonto() {
         return monto;
     }
 
@@ -126,11 +125,11 @@ public class StockProducto implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public BigDecimal getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(BigDecimal costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
     }
 

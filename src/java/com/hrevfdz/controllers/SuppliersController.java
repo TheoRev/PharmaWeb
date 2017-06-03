@@ -24,6 +24,7 @@ public class SuppliersController implements Serializable {
     @PostConstruct
     public void init() {
         suppliers = new Suppliers();
+        doFindAll();
     }
 
     public void doFindAll() {
@@ -31,7 +32,8 @@ public class SuppliersController implements Serializable {
         IPharmacy dao = new SuppliersDAO();
 
         try {
-            supplierses = dao.findAll();
+            final String query = "SELECT s FROM Suppliers s ORDER BY s.nombre";
+            supplierses = dao.findByQuery(query);
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, MessagesUtil.ERROR);
         }

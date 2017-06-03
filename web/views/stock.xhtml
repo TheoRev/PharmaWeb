@@ -54,7 +54,7 @@
                                       style="#{stockController.colorearFila(sp.cantidad)}">
                                 <h:outputText value="#{sp.presentacion}" />
                             </p:column>
-                            <p:column headerText="Laboratorio"
+                            <p:column headerText="Laboratorio" filterBy="#{sp.codLab.nomLab}" sortBy="#{sp.codLab.nomLab}"
                                       style="#{stockController.colorearFila(sp.cantidad)}">
                                 <h:outputText value="#{sp.codLab.nomLab}" />
                             </p:column>
