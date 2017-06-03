@@ -30,6 +30,10 @@
                     <file>${libs.PrimeFaces.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library dirs="200">
+                    <file>${libs.iText.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries>
                 <library dirs="200">
@@ -38,6 +42,18 @@
                 </library>
                 <library dirs="200">
                     <file>${libs.PostgreSQL.classpath}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.iText.classpath}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.Omnifaces.classpath}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.PrimeFaces.classpath}</file>
                     <path-in-war>/</path-in-war>
                 </library>
             </web-module-additional-libraries>

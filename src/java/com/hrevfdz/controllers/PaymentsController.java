@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -151,7 +152,7 @@ public class PaymentsController implements Serializable {
         IPharmacy<StockProducto> dao = new StockProductoDAO();
 
         try {
-            final String query = "SELECT p FROM StockProducto p WHERE p.cantidad > 0 AND p.codLab = " + laboratory.getCodLab() + " p ORDER BY p.nombre";
+            final String query = "SELECT p FROM StockProducto p WHERE p.cantidad > 0 AND p.codLab.codLab = " + laboratory.getCodLab() + " ORDER BY p.nombre";
             productos = dao.findByQuery(query);
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
