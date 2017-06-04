@@ -13,34 +13,35 @@
             <ui:define name="content">
                 <h:form id="frmFiltroSale">
                     <p:growl id="wellcomeMessage" showDetail="true" />
-                    <!--<p:inputText id="txtFinderSale" placeholder="Nombre de farmaco" />
-        &nbsp;-->
                     <br />
-                    <p:outputLabel for="txtFechaSale" value="Fecha" />
-                    <p:calendar id="txtFechaSale" pattern="dd/MM/yyyy" navigator="true"
-                                effect="fold" value="#{saleController.fecha}" required="true"
-                                validatorMessage="Este compo no debe estar vacio"
-                                showOn="button">
-                        <p:ajax event="dateSelect"
-                                listener="#{saleController.doFindByFecha()}"
-                                update=":frmSaleResult:pnlSaleResult" />
-                    </p:calendar>
-                    &nbsp;
-                    <p:commandButton icon="fa fa-search"
-                                     action="#{saleController.doFindByFecha()}"
-                                     update=":frmSaleResult:pnlSaleResult wellcomeMessage" validateClient="true" />
+                    <p:panel id="pnlBusqueda" style="font-size: 10pt;">
+                        <p:outputLabel for="txtFechaSale" value="Fecha:" />&nbsp;
+                        <p:calendar id="txtFechaSale" pattern="dd/MM/yyyy" navigator="true"
+                                    effect="fold" value="#{saleController.fecha}" 
+                                    validatorMessage="Este compo no debe estar vacio"
+                                    showOn="button">
+                            <p:ajax event="dateSelect"
+                                    listener="#{saleController.doFindByFecha()}"
+                                    update=":frmSaleResult:pnlSaleResult" />
+                        </p:calendar>
+                        &nbsp;
+                        <p:commandButton icon="fa fa-search"
+                                         value="Mostrar todo"
+                                         action="#{saleController.doFindAll()}"
+                                         update=":frmSaleResult:pnlSaleResult wellcomeMessage" />
+                    </p:panel>
                     <br />
                 </h:form>
 
                 <h:form id="frmSaleResult">
                     <p:growl id="showMessage" showDetail="true" />
-                    <p:panel id="pnlSaleResult">
+                    <p:panel id="pnlSaleResult" style="font-size: 10pt;">
                         <p:dataTable id="tblSaleResult" rows="10" paginator="true"
                                      value="#{saleController.sales}" var="sp"
                                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15" style="font-size: 9pt">
                             <f:facet name="header">
-                                <p:outputLabel style="font-size: 15pt">
+                                <p:outputLabel style="font-size: 12pt">
                                     Listado de Venta
                                 </p:outputLabel>
                                 <p:commandButton value="Nueva Venta"
@@ -68,15 +69,15 @@
                                                        timeZone="#{saleController.timeZone}" />
                                 </h:outputText>
                             </p:column>
-                            <p:column headerText="Cantidad">
+                            <p:column headerText="Cantidad" styleClass="cantidades">
                                 <h:outputText value="#{sp.cantidad}" />
                             </p:column>
-                            <p:column headerText="Precio Unit.">
+                            <p:column headerText="Precio Unit." styleClass="precios">
                                 <h:outputText value="#{sp.codStock.monto}">
                                     <f:convertNumber currencySymbol="S/." type="currency" />
                                 </h:outputText>
                             </p:column>
-                            <p:column headerText="Subtotal">
+                            <p:column headerText="Subtotal" styleClass="precios">
                                 <h:outputText value="#{sp.subtotal}">
                                     <f:convertNumber currencySymbol="S/." type="currency" />
                                 </h:outputText>
@@ -84,7 +85,7 @@
                             <p:column headerText="Usuario">
                                 <h:outputText value="#{sp.userId.username}"/>
                             </p:column>
-                            <p:column headerText="">
+                            <p:column headerText="" exportable="false">
                                 <div class="action_column">
                                     <p:commandButton icon="fa fa-pencil"
                                                      update=":frmSaleCU:idDlgSaleCU"
@@ -97,6 +98,20 @@
                                                      action="#{saleController.doUpgrade(sp)}" />
                                 </div>
                             </p:column>
+
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column footerText=""/>
+                                    <p:column footerText=""/>
+                                    <p:column footerText=""/>
+                                    <p:column footerText=""/>
+                                    <p:column footerText=""/>
+                                    <p:column footerText="TOTAL: "/>
+                                    <p:column footerText="#{saleController.doGetTotal()}"/>
+                                    <p:column footerText=""/>
+                                    <p:column footerText=""/>
+                                </p:row>
+                            </p:columnGroup>
                         </p:dataTable>
                     </p:panel>
                 </h:form>
