@@ -11,7 +11,6 @@ import com.hrevfdz.util.AccionUtil;
 import com.hrevfdz.util.MessagesUtil;
 import com.hrevfdz.util.QueriesUtil;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,7 +62,8 @@ public class SaleController implements Serializable {
         dao = new SaleDAO();
 
         try {
-            sales = dao.findAll();
+            final String query = "SELECT s FROM Sale s ORDER BY s.fecha";
+            sales = dao.findByQuery(query);
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR EN DB", ex.getMessage());
         }
@@ -128,6 +128,30 @@ public class SaleController implements Serializable {
         if (message != null) {
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
+    }
+
+    public double doGetTotal() {
+        FacesMessage message = null;
+        IPharmacy daos = new SaleDAO();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        String query = "SELECT SUM(s.subtotal) FROM Sale s WHERE s.fecha = '";
+
+        double total = 0;
+
+        try {
+            query += (fecha != null) ? sdf.format(fecha) : sdf.format(new Date());
+            query += "'";
+            total = daos.findBy(query) != null ? (double) daos.findBy(query) : 0;
+        } catch (Exception ex) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR EN DB", ex.getMessage());
+        }
+
+        if (message != null) {
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+
+        return total;
     }
 
     public void calcSubtotal() {
@@ -249,11 +273,11 @@ public class SaleController implements Serializable {
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-    
+
     public void doGetUserActive() {
         FacesMessage msg = null;
         IPharmacy<Access> dao = new AccessDAO();
-        
+
         try {
             final String query = "SELECT a FROM Access a WHERE a.id = (SELECT MAX(t.id) FROM Access t)";
             access = dao.findBy(query);
@@ -261,7 +285,7 @@ public class SaleController implements Serializable {
         } catch (Exception e) {
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, MessagesUtil.ERROR_TITLE, e.getMessage());
         }
-        
+
         if (msg != null) {
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }

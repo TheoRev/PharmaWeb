@@ -56,3 +56,11 @@ icon{
     margin-left: 775pt;
     /*right: 10px;*/
 }
+
+.precios{
+    text-align:  right;
+}
+
+.cantidades{
+    text-align: center;
+}
