@@ -31,7 +31,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.iText.classpath}</file>
+                    <file>${libs.iReport.classpath}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
@@ -45,11 +45,11 @@
                     <path-in-war>/</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.iText.classpath}</file>
+                    <file>${libs.Omnifaces.classpath}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${libs.Omnifaces.classpath}</file>
+                    <file>${libs.iReport.classpath}</file>
                     <path-in-war>/</path-in-war>
                 </library>
                 <library dirs="200">

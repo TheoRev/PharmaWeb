@@ -36,10 +36,12 @@
                 <h:form id="frmSaleResult">
                     <p:growl id="showMessage" showDetail="true" />
                     <p:panel id="pnlSaleResult" style="font-size: 10pt;">
-                        <p:dataTable id="tblSaleResult" rows="10" paginator="true"
+                        <p:dataTable id="tblSaleResult" rows="6" paginator="true"
                                      value="#{saleController.sales}" var="sp"
-                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15" style="font-size: 9pt">
+                                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {CurrentPageReport} {Exporters}"
+                                     rowsPerPageTemplate="5,10,15" style="font-size: 9pt"
+                                     sortBy="#{sp.fecha}"
+                                     expandableRowGroups="true">
                             <f:facet name="header">
                                 <p:outputLabel style="font-size: 12pt">
                                     Listado de Venta
@@ -51,14 +53,37 @@
                                                  title="Añadir Venta" action="#{saleController.doNew()}" />
                             </f:facet>
 
+                            <f:facet name="{Exporters}">
+                                <h:commandLink title="Exporatar a PDF">
+                                    <p:graphicImage name="/images/pdf.png" width="24"/>
+                                    <p:dataExporter type="pdf" target="tblSaleResult" fileName="ventas"/>
+                                </h:commandLink>
+                            </f:facet>
+
+                            <p:headerRow>
+                                <p:column>
+                                    <h:outputText value="#{sp.fecha}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                            </p:headerRow>
+
                             <p:column headerText="Código" styleClass="cod_col"
                                       sortBy="#{sp.codSale}">
                                 <h:outputText value="#{sp.codSale}" />
                             </p:column>
-                            <p:column headerText="Producto">
+                            <p:column headerText="Producto" sortBy="#{sp.codStock.nombre}">
                                 <h:outputText value="#{sp.codStock.nombre}" />
                             </p:column>
-                            <p:column headerText="Fecha">
+                            <p:column headerText="Fecha" sortBy="#{sp.fecha}">
                                 <h:outputText value="#{sp.fecha}">
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </h:outputText>
@@ -99,19 +124,23 @@
                                 </div>
                             </p:column>
 
-                            <p:columnGroup type="footer">
-                                <p:row>
-                                    <p:column footerText=""/>
-                                    <p:column footerText=""/>
-                                    <p:column footerText=""/>
-                                    <p:column footerText=""/>
-                                    <p:column footerText=""/>
-                                    <p:column footerText="TOTAL: "/>
-                                    <p:column footerText="#{saleController.doGetTotal()}"/>
-                                    <p:column footerText=""/>
-                                    <p:column footerText=""/>
-                                </p:row>
-                            </p:columnGroup>
+                            <p:summaryRow >
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column/>
+                                <p:column>
+                                    <h:outputText value="Total:"/>
+                                </p:column>
+                                <p:column exportable="true">
+                                    <h:outputText value="#{saleController.doGetTotal(sp.fecha)}">
+                                        <f:convertNumber type="currency" currencySymbol="S/. "/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column/>
+                                <p:column/>
+                            </p:summaryRow>
                         </p:dataTable>
                     </p:panel>
                 </h:form>

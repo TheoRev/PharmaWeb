@@ -62,7 +62,7 @@ public class SaleController implements Serializable {
         dao = new SaleDAO();
 
         try {
-            final String query = "SELECT s FROM Sale s ORDER BY s.fecha";
+            final String query = "SELECT s FROM Sale s ORDER BY s.fecha DESC";
             sales = dao.findByQuery(query);
         } catch (Exception ex) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR EN DB", ex.getMessage());
@@ -130,7 +130,7 @@ public class SaleController implements Serializable {
         }
     }
 
-    public double doGetTotal() {
+    public double doGetTotal(Date f) {
         FacesMessage message = null;
         IPharmacy daos = new SaleDAO();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -140,7 +140,7 @@ public class SaleController implements Serializable {
         double total = 0;
 
         try {
-            query += (fecha != null) ? sdf.format(fecha) : sdf.format(new Date());
+            query += (fecha != null) ? sdf.format(fecha) : sdf.format(f);
             query += "'";
             total = daos.findBy(query) != null ? (double) daos.findBy(query) : 0;
         } catch (Exception ex) {

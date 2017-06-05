@@ -1003,11 +1003,11 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.eclipselink.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.Omnifaces.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.PrimeFaces.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${libs.iText.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${libs.iReport.classpath}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${libs.FontAwesome.classpath}" todir="${build.web.dir}//"/>
         <copyfiles files="${libs.PostgreSQL.classpath}" todir="${build.web.dir}//"/>
-        <copyfiles files="${libs.iText.classpath}" todir="${build.web.dir}//"/>
         <copyfiles files="${libs.Omnifaces.classpath}" todir="${build.web.dir}//"/>
+        <copyfiles files="${libs.iReport.classpath}" todir="${build.web.dir}//"/>
         <copyfiles files="${libs.PrimeFaces.classpath}" todir="${build.web.dir}//"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
@@ -1019,11 +1019,11 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${libs.eclipselink.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.Omnifaces.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.PrimeFaces.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${libs.iText.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${libs.iReport.classpath}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${libs.FontAwesome.classpath}" todir="${build.web.dir}//"/>
         <copyfiles files="${libs.PostgreSQL.classpath}" todir="${build.web.dir}//"/>
-        <copyfiles files="${libs.iText.classpath}" todir="${build.web.dir}//"/>
         <copyfiles files="${libs.Omnifaces.classpath}" todir="${build.web.dir}//"/>
+        <copyfiles files="${libs.iReport.classpath}" todir="${build.web.dir}//"/>
         <copyfiles files="${libs.PrimeFaces.classpath}" todir="${build.web.dir}//"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
